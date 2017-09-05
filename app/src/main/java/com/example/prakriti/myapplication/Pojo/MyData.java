@@ -1,62 +1,64 @@
 package com.example.prakriti.myapplication.Pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by Prakriti on 9/1/2017.
  */
 
-public class MyData {
-    private Integer id;
-    private String name, description, image, price;
+public class MyData implements Serializable {
+       Integer id;
+        String  name, description, image,price;
 
-    public MyData(Integer id, String name, String description, String image, String price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.price = price;
+        public MyData(Integer id, String name, String price, String description, String image) {
+                this.id = id;
+                this.name = name;
+                this.price = price;
+                this.description = description;
+                this.image = image;
 
-    }
+        }
 
-    public Integer getId() {
-        return id;
-    }
+        public Integer getId() {
+                return id;
+        }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+        public void setId(Integer id) {
+                this.id = id;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public String getName() {
+                return name;
+        }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public void setName(String name) {
+                this.name = name;
+        }
 
-    public String getDescription() {
-        return description;
-    }
+        public String getPrice() {
+                return price;
+        }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+        public void setPrice(String price) {
+                this.price = price;
+        }
 
-    public String getImage() {
-        return image;
-    }
+        public String getDescription() {
+                return description;
+        }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+        public void setDescription(String description) {
+                this.description = description;
+        }
 
-    public String getPrice() {
-        return price;
-    }
+        public String getImage() {
+                return image;
+        }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+        public void setImage(String image) {
+                this.image = image;
+        }
+
 
 
 }
-

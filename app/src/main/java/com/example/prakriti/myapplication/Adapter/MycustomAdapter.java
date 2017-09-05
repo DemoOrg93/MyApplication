@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.prakriti.myapplication.Pojo.MyData;
 import com.example.prakriti.myapplication.R;
@@ -19,26 +18,22 @@ import java.util.List;
  * Created by Prakriti on 9/1/2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHolder> {
 
     private Context context;
     private List<MyData> my_data;
 
-    public CustomAdapter(Context context, List<MyData> my_data) {
+    public MycustomAdapter(Context context, List<MyData> my_data) {
         this.context = context;
         this.my_data = my_data;
     }
 
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card,parent,false);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
-                //   context.startActivity(new Intent(context,DetailsActivity.class));
-            }
-        });
+
 
 
         return new ViewHolder(itemView);
@@ -75,13 +70,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            name =  itemView.findViewById(R.id.description);
-            imageview = itemView.findViewById(R.id.imageview);
+            name = (TextView) itemView.findViewById(R.id.description);
+            imageview = (ImageView)itemView.findViewById(R.id.imageview);
 
         }
-    }
+    }}
 
-    public static int getResourceId(Context context, String pVariableName, String pResourcename, String pPackageName) throws RuntimeException {
+  /*  public static int getResourceId(Context context, String pVariableName, String pResourcename, String pPackageName) throws RuntimeException {
         try {
             return context.getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
         } catch (Exception e) {
@@ -90,4 +85,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
 
-}
+}*/

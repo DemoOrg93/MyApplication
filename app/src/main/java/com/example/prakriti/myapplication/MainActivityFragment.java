@@ -1,46 +1,30 @@
 package com.example.prakriti.myapplication;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.example.prakriti.myapplication.Adapter.CustomAdapter;
+import com.example.prakriti.myapplication.Adapter.MycustomAdapter;
 import com.example.prakriti.myapplication.Pojo.MyData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
-import static android.R.attr.id;
-
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment {
-     RecyclerView recyclerView;
-     GridLayoutManager gridLayoutManager;
-     CustomAdapter adapter;
-     List<MyData> data_list;
+    MycustomAdapter mAdapter;
 
     public MainActivityFragment() {
     }
@@ -48,85 +32,102 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
+
+
         perform(v);
-        return  v;
-
-
+        return v;
     }
 
-    public  void perform(View v){
-
-        new ProductsAsyncTask().execute();
-
-
+    public void perform(View v)
+    {
+        new ProductAsyncTask().execute();
     }
-    class ProductsAsyncTask extends AsyncTask<String, String, String> {
-        ProgressDialog progressDialog;
-        int flag = 0;
+
+    class ProductAsyncTask extends AsyncTask<String, String, String> {
+        ProgressDialog mprogressDialog;
+        RecyclerView mrecyclerView;
+        int flag;
+        String result = "";
+        List<MyData> data_list = new ArrayList<>();
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Plz wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+            mprogressDialog = new ProgressDialog(getContext());
+            mprogressDialog.setMessage("Please wait");
+            mprogressDialog.setCancelable(false);
+            mprogressDialog.show();
+
         }
-        @Override
-        protected String doInBackground(String... params) {
-            HashMap<String, String> loginhashmap = new HashMap<>();
-            JsonParser jsonParser = new JsonParser();
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url("http://192.168.100.57/script.php?id=").build();
-            try {
+
+            @Override
+            protected String doInBackground(String... params) {
+                HashMap<String, String> loginHashMap = new HashMap<>();
+                JsonParser jsonParser = new JsonParser();
+                JSONObject jsonObject = jsonParser.performPostCI("http://aprakriti.com.np/android/script.php", loginHashMap);
 
 
-                    Response response = client.newCall(request).execute();
+                try {
+                    if (jsonObject == null) {
+                        flag = 1;
+                    } else if (jsonObject.getString(result).equals(result)) {
+                        JSONArray jsonArray=jsonObject.getJSONArray(result);
+                        for(int i=0;i<jsonArray.length();i++)
+                        {
+                            JSONObject dataObject = jsonArray.getJSONObject(i);
+                            Integer id = dataObject.getInt("id");
+                            String name = dataObject.getString("name");
+                            String description = dataObject.getString("details");
+                            String image = dataObject.getString("image");
+                            String price = dataObject.getString("price");
 
+                            MyData myData= new MyData(id, name, price, description, image );
+                            data_list.add(myData);
+                            flag = 2;
 
-                    JSONArray array = new JSONArray(response.body().string());
-
-
-                    for (int i = 0; i < array.length(); i++) {
-
-                        JSONObject object = array.getJSONObject(i);
-
-                        MyData data = new MyData(object.getInt("id"), object.getString("name"),
-                                object.getString("description"), object.getString("image"), object.getString("price"));
-
-                        data_list.add(data);
-                        Log.e("swikriti", "sonika");
+                        }
 
                     }
+                    else {
+                        flag = 3;
+                    }
 
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (JSONException e) {
-                    System.out.println("End of Content");
+                    e.printStackTrace();
                 }
                 return null;
             }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
 
-            super.onPostExecute(s);
-            progressDialog.dismiss();
+                @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        mprogressDialog.dismiss();
+                    if (flag == 1) {
+                        Toast.makeText(getContext(), "Server/Network issue", Toast.LENGTH_SHORT).show();
+
+                    } else if (flag == 2) {
+                        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                        mrecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+
+                        GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);
+                        mrecyclerView.setLayoutManager(mGrid);
+                        mrecyclerView.setHasFixedSize(true);
+                        mrecyclerView.setNestedScrollingEnabled(false);
+
+                        MycustomAdapter mAdapter = new MycustomAdapter(getContext(), data_list );
+                        mrecyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
 
 
-            recyclerView = getView().findViewById(R.id.recycler_view);
-            gridLayoutManager = new GridLayoutManager(getContext(), 1);
-            recyclerView.setLayoutManager(gridLayoutManager);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setNestedScrollingEnabled(false);
-
-            adapter = new CustomAdapter(getContext(), data_list);
-            recyclerView.setAdapter(adapter);
-
-            adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    }
 
 
+    }
 
-        }};
-        }
+}
+
+}
