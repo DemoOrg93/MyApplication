@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 public class MyData implements Serializable {
        Integer id;
-        String  name, description, image,price;
+        String  name, image,description,price;
 
-        public MyData(Integer id, String name, String price, String description, String image) {
+        public MyData(Integer id, String name, String image,  String description,String price) {
                 this.id = id;
                 this.name = name;
                 this.price = price;

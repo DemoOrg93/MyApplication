@@ -46,11 +46,12 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
         //  int imageRes = getResourceId(context, productObject.getImage(), "drawable", context.getPackageName());
         // holder.imageview.setImageResource(imageRes);
         holder.name.setText(productObject.getName());
-        Picasso.with(context).load(my_data.get(position).getImage()).into(holder.imageview);
-        // Picasso.with(context).load("/files/my_image.jpg").into(holder.imageview);
+       // Picasso.with(context).load(my_data.get(position).getImage()).into(holder.imageview);
+        //Picasso.with(context).load("/files/my_image.jpg").into(holder.imageview);
         //  Glide.with(context).load(my_data.get(position).getImage()).into(holder.imageview);
-        //Picasso.with(context).load(productObject.getImage()).into(holder.imageview);
-        //  Picasso.with(context).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPDB05lENAMmxU0hqxvthB4ClQjchd3QsFllGoFD8XDpu_RlOi").into(holder.imageview);
+        Picasso.with(context).load(productObject.getImage()).into(holder.imageview1);
+       //  Picasso.with(context).load("http://cdn.naturalhealers.com/wp-content/uploads/2016/10/alternative-medicine-herbal-medicine.jpg").into(holder.imageview);
+        /// Picasso.with(context).load(productObject.getImage()).into(holder.imageview);
         // Glide.with(context).load(productObject.getImage()).into(holder.imageview);
         // Glide.with(context).load("https://images-na.ssl-images-amazon.com//images//G//01//aplusautomation//vendorimages//79ed73a8-a371-4b0d-9b52-54070bbc5b88.JPG._CB311162797_.jpg").into(holder.imageview);
     }
@@ -65,13 +66,13 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView name;
-        ImageView imageview;
+        ImageView imageview1;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.description);
-            imageview = (ImageView)itemView.findViewById(R.id.imageview);
+            imageview1 = (ImageView)itemView.findViewById(R.id.imageview);
 
         }
     }}
