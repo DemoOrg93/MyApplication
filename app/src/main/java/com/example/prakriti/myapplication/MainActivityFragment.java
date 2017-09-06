@@ -1,15 +1,20 @@
 package com.example.prakriti.myapplication;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
+
 
 import com.example.prakriti.myapplication.Adapter.MycustomAdapter;
 import com.example.prakriti.myapplication.Pojo.MyData;
@@ -18,13 +23,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static android.R.attr.id;
 
 public class MainActivityFragment extends Fragment {
-    MycustomAdapter mAdapter;
+
 
     public MainActivityFragment() {
     }
@@ -35,11 +46,11 @@ public class MainActivityFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
 
-        perform(v);
+        perform();
         return v;
     }
 
-    public void perform(View v)
+    public void perform()
     {
         new ProductAsyncTask().execute();
     }
@@ -48,7 +59,6 @@ public class MainActivityFragment extends Fragment {
         ProgressDialog mprogressDialog;
         RecyclerView mrecyclerView;
         int flag;
-        String result = "";
         List<MyData> data_list = new ArrayList<>();
 
         @Override
@@ -61,73 +71,73 @@ public class MainActivityFragment extends Fragment {
 
         }
 
-            @Override
-            protected String doInBackground(String... params) {
-                HashMap<String, String> loginHashMap = new HashMap<>();
-                JsonParser jsonParser = new JsonParser();
-                JSONObject jsonObject = jsonParser.performPostCI("http://aprakriti.com.np/android/script.php", loginHashMap);
+        @Override
+        protected String doInBackground(String... params) {
+            HashMap<String, String> loginHashMap = new HashMap<>();
+            JsonParser jsonParser = new JsonParser();
+            JSONObject jsonObject = jsonParser.performPostCI("http://aprakriti.com.np/android/", loginHashMap);
 
 
-                try {
-                    if (jsonObject == null) {
-                        flag = 1;
-                    } else if (jsonObject.getString(result).equals(result)) {
-                        JSONArray jsonArray=jsonObject.getJSONArray(result);
-                        for(int i=0;i<jsonArray.length();i++)
-                        {
-                            JSONObject dataObject = jsonArray.getJSONObject(i);
-                            Integer id = dataObject.getInt("id");
-                            String name = dataObject.getString("name");
-                            String description = dataObject.getString("details");
-                            String image = dataObject.getString("image");
-                            String price = dataObject.getString("price");
+            try {
+                if (jsonObject == null) {
+                    flag = 1;
+                } else if (jsonObject.getString("status").equals("success")) {
+                    JSONArray jsonArray=jsonObject.getJSONArray("data");
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject dataObject = jsonArray.getJSONObject(i);
+                        Integer id = dataObject.getInt("id");
+                        String name = dataObject.getString("name");
+                        String image = dataObject.getString("image");
+                        Log.e("donkey", "sam");
+                        String description = dataObject.getString("description");
+                        String price = dataObject.getString("price");
 
-                            MyData myData= new MyData(id, name, price, description, image );
-                            data_list.add(myData);
-                            flag = 2;
-
-                        }
+                        MyData myData= new MyData(id, name,image,description,price);
+                        data_list.add(myData);
+                        flag = 2;
 
                     }
-                    else {
-                        flag = 3;
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-                return null;
+                else {
+                    flag = 3;
+                }
+
+            } catch (JSONException e) {
+
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            mprogressDialog.dismiss();
+            if (flag == 1) {
+                Toast.makeText(getContext(), "Server/Network issue", Toast.LENGTH_SHORT).show();
+
+            } else if (flag == 2) {
+                //mAdapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                mrecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+
+                GridLayoutManager mGrid = new GridLayoutManager(getContext(),1);
+                mrecyclerView.setLayoutManager(mGrid);
+                mrecyclerView.setHasFixedSize(true);
+                MycustomAdapter mAdapter = new MycustomAdapter(getContext(), data_list );
+                mrecyclerView.setAdapter(mAdapter);
+
+
+
+            } else {
+                Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
             }
 
 
-                @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        mprogressDialog.dismiss();
-                    if (flag == 1) {
-                        Toast.makeText(getContext(), "Server/Network issue", Toast.LENGTH_SHORT).show();
-
-                    } else if (flag == 2) {
-                        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                        mrecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-
-                        GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);
-                        mrecyclerView.setLayoutManager(mGrid);
-                        mrecyclerView.setHasFixedSize(true);
-                        mrecyclerView.setNestedScrollingEnabled(false);
-
-                        MycustomAdapter mAdapter = new MycustomAdapter(getContext(), data_list );
-                        mrecyclerView.setAdapter(mAdapter);
-                        mAdapter.notifyDataSetChanged();
-
-
-                    } else {
-                        Toast.makeText(getContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-                    }
-
+        }
 
     }
-
-}
 
 }
