@@ -29,6 +29,8 @@
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FoodActivity"/>
+        <activity android:name=".FoodDetailsActivity"/>
     </application>
 
 </manifest>
