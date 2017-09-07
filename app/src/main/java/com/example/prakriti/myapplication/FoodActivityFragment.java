@@ -41,7 +41,7 @@ public class FoodActivityFragment extends Fragment {
         new ProductAsyncTask().execute();
     }
 
-        class ProductAsyncTask extends AsyncTask<String, String, String> {
+    class ProductAsyncTask extends AsyncTask<String, String, String> {
             ProgressDialog mprogressDialog;
             RecyclerView bestRecyclerView;
             int flag;
