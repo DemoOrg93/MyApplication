@@ -24,7 +24,6 @@ public class FoodActivity extends AppCompatActivity  {
                         .setAction("Action", null).show();
             }
         });
-
     }
 
     @Override
