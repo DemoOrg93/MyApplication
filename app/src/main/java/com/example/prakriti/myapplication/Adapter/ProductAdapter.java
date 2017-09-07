@@ -49,9 +49,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
             @Override
             public void onClick(View v) {
                ProductObject one = productList.get(position);
-                Intent intent1 = new Intent(context, FoodDetailsActivity.class);
-                intent1.putExtra("yellow", one);
-                context.startActivity(intent1);
+                Intent intent2 = new Intent(context, FoodDetailsActivity.class);
+                intent2.putExtra("yellow", one);
+                context.startActivity(intent2);
                 Log.e("donkey", "monkey");
             }
         });
