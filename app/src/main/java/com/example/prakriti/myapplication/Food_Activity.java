@@ -17,7 +17,7 @@ public class Food_Activity extends AppCompatActivity {
     //    Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar1);
 //        setSupportActionBar(toolbar1);
 
-
+//test
 
     }
 
