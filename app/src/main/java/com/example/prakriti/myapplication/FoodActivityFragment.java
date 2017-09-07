@@ -11,13 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 
 import com.example.prakriti.myapplication.Adapter.ProductAdapter;
-=======
-import com.example.prakriti.myapplication.Adapter.ProductAdapter;
-import com.example.prakriti.myapplication.Json.JsonParser;
->>>>>>> origin/master
+
+
 import com.example.prakriti.myapplication.Pojo.ProductObject;
 
 import org.json.JSONArray;
@@ -39,12 +37,10 @@ public class FoodActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD
+
         View v = inflater.inflate(R.layout.fragment_food, container, false);
-=======
-        View v = inflater.inflate(R.layout.fragment_main_food, container, false);
->>>>>>> origin/master
-        perform(v);
+
+   perform(v);
         return v;
     }
 
@@ -54,11 +50,10 @@ public class FoodActivityFragment extends Fragment {
     }
 
         class ProductAsyncTask extends AsyncTask<String, String, String> {
-<<<<<<< HEAD
-            ProgressDialog nprogressDialog;
-=======
+
+
             ProgressDialog mprogressDialog;
->>>>>>> origin/master
+
             RecyclerView bestRecyclerView;
             int flag;
             List<ProductObject> ProductList = new ArrayList<ProductObject>();
@@ -66,17 +61,13 @@ public class FoodActivityFragment extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-<<<<<<< HEAD
-                nprogressDialog = new ProgressDialog(getContext());
-                nprogressDialog.setMessage("Please wait");
-                nprogressDialog.setCancelable(false);
-                nprogressDialog.show();
-=======
+
+
                 mprogressDialog = new ProgressDialog(getContext());
                 mprogressDialog.setMessage("Please wait");
                 mprogressDialog.setCancelable(false);
                 mprogressDialog.show();
->>>>>>> origin/master
+
 
             }
 
@@ -124,11 +115,10 @@ public class FoodActivityFragment extends Fragment {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-<<<<<<< HEAD
-                nprogressDialog.dismiss();
-=======
+
+
                 mprogressDialog.dismiss();
->>>>>>> origin/master
+
                 if (flag == 1) {
                     Toast.makeText(getContext(), "Server/Network issue", Toast.LENGTH_SHORT).show();
 
@@ -136,13 +126,10 @@ public class FoodActivityFragment extends Fragment {
                     Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                     bestRecyclerView = (RecyclerView) getView().findViewById(R.id.product_list);
 
-<<<<<<< HEAD
-                    GridLayoutManager nGrid = new GridLayoutManager(getContext(),2);
-                    bestRecyclerView.setLayoutManager(nGrid);
-=======
+
                     GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);
                     bestRecyclerView.setLayoutManager(mGrid);
->>>>>>> origin/master
+
                     bestRecyclerView.setHasFixedSize(true);
                     bestRecyclerView.setNestedScrollingEnabled(false);
 
