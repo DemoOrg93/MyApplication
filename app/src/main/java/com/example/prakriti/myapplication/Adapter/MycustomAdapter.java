@@ -34,7 +34,6 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card,parent,false);
 
 
-
         return new ViewHolder(itemView);
     }
 
