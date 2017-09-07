@@ -36,7 +36,6 @@ public class FoodActivityFragment extends Fragment {
         perform(v);
         return v;
     }
-
     public void perform(View v)
     {
         new ProductAsyncTask().execute();
