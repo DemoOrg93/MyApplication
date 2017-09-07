@@ -18,6 +18,7 @@ public class Food_Activity extends AppCompatActivity {
 //        setSupportActionBar(toolbar1);
 
 //test
+        //tetdhkjh
 
     }
 
