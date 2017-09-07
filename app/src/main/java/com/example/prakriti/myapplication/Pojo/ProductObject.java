@@ -5,10 +5,7 @@ import java.io.Serializable;
 /**
  * Created by sonika on 8/30/2017.
  */
-<<<<<<< HEAD
-=======
-//test
->>>>>>> origin/master
+
 
 public class ProductObject implements Serializable {
     String id, name, price, description, image, materials;
