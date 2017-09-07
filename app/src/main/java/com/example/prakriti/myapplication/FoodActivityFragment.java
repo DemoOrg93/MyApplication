@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.prakriti.myapplication.Adapter.ProductAdapter;
-import com.example.prakriti.myapplication.Json.JsonParser;
+
 import com.example.prakriti.myapplication.Pojo.ProductObject;
 
 import org.json.JSONArray;
@@ -23,9 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- *////commentPrakriti
+
 public class FoodActivityFragment extends Fragment {
 
     public FoodActivityFragment() {
