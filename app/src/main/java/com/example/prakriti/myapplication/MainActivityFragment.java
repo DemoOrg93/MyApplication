@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 
 import com.example.prakriti.myapplication.Adapter.MycustomAdapter;
-import com.example.prakriti.myapplication.Json.JsonParser;
+
 import com.example.prakriti.myapplication.Pojo.MyData;
 
 import org.json.JSONArray;

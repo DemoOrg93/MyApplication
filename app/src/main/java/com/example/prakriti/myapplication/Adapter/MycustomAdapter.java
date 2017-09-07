@@ -1,14 +1,18 @@
 package com.example.prakriti.myapplication.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.prakriti.myapplication.Food_Activity;
 import com.example.prakriti.myapplication.Pojo.MyData;
+import com.example.prakriti.myapplication.Pojo.ProductObject;
 import com.example.prakriti.myapplication.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +26,7 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
 
     private Context context;
     private List<MyData> my_data;
+    private List<ProductObject> productList;
 
     public MycustomAdapter(Context context, List<MyData> my_data) {
         this.context = context;
@@ -38,20 +43,24 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
         MyData productObject = my_data.get(position);
         //  int imageRes = getResourceId(context, productObject.getImage(), "drawable", context.getPackageName());
         // holder.imageview.setImageResource(imageRes);
         holder.name.setText(productObject.getName());
-       // Picasso.with(context).load(my_data.get(position).getImage()).into(holder.imageview);
-        //Picasso.with(context).load("/files/my_image.jpg").into(holder.imageview);
-        //  Glide.with(context).load(my_data.get(position).getImage()).into(holder.imageview);
         Picasso.with(context).load(productObject.getImage()).into(holder.imageview1);
-       //  Picasso.with(context).load("http://cdn.naturalhealers.com/wp-content/uploads/2016/10/alternative-medicine-herbal-medicine.jpg").into(holder.imageview);
-        /// Picasso.with(context).load(productObject.getImage()).into(holder.imageview);
-        // Glide.with(context).load(productObject.getImage()).into(holder.imageview);
-        // Glide.with(context).load("https://images-na.ssl-images-amazon.com//images//G//01//aplusautomation//vendorimages//79ed73a8-a371-4b0d-9b52-54070bbc5b88.JPG._CB311162797_.jpg").into(holder.imageview);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ProductObject one = productList.get(position);
+                Intent intent = new Intent(context, Food_Activity.class);
+         //       intent.putExtra("yellow", one);
+                context.startActivity(intent);
+                Log.e("donkey", "monkey");
+            }
+        });
+
     }
 
     @Override
@@ -67,10 +76,10 @@ public class MycustomAdapter extends RecyclerView.Adapter<MycustomAdapter.ViewHo
         ImageView imageview1;
 
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.description);
-            imageview1 = (ImageView)itemView.findViewById(R.id.imageview);
+        public ViewHolder(View itemV) {
+            super(itemV);
+            name = (TextView) itemV.findViewById(R.id.description);
+            imageview1 = (ImageView)itemV.findViewById(R.id.imageview);
 
         }
     }}

@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
+
 import com.example.prakriti.myapplication.Adapter.ProductAdapter;
+
 
 import com.example.prakriti.myapplication.Pojo.ProductObject;
 
@@ -23,7 +26,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * A placeholder fragment containing a simple view.
+ *////commentPrakriti
 public class FoodActivityFragment extends Fragment {
 
     public FoodActivityFragment() {
@@ -32,17 +37,23 @@ public class FoodActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main_food, container, false);
-        perform(v);
+
+        View v = inflater.inflate(R.layout.fragment_food, container, false);
+
+   perform(v);
         return v;
     }
+
     public void perform(View v)
     {
         new ProductAsyncTask().execute();
     }
 
-    class ProductAsyncTask extends AsyncTask<String, String, String> {
+        class ProductAsyncTask extends AsyncTask<String, String, String> {
+
+
             ProgressDialog mprogressDialog;
+
             RecyclerView bestRecyclerView;
             int flag;
             List<ProductObject> ProductList = new ArrayList<ProductObject>();
@@ -50,10 +61,13 @@ public class FoodActivityFragment extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+
+
                 mprogressDialog = new ProgressDialog(getContext());
                 mprogressDialog.setMessage("Please wait");
                 mprogressDialog.setCancelable(false);
                 mprogressDialog.show();
+
 
             }
 
@@ -101,7 +115,10 @@ public class FoodActivityFragment extends Fragment {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+
+
                 mprogressDialog.dismiss();
+
                 if (flag == 1) {
                     Toast.makeText(getContext(), "Server/Network issue", Toast.LENGTH_SHORT).show();
 
@@ -109,8 +126,10 @@ public class FoodActivityFragment extends Fragment {
                     Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                     bestRecyclerView = (RecyclerView) getView().findViewById(R.id.product_list);
 
+
                     GridLayoutManager mGrid = new GridLayoutManager(getContext(),2);
                     bestRecyclerView.setLayoutManager(mGrid);
+
                     bestRecyclerView.setHasFixedSize(true);
                     bestRecyclerView.setNestedScrollingEnabled(false);
 
