@@ -62,17 +62,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_Home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_About_Us) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_Valued_Customer) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_Contact) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_herbals) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_health) {
+
+        }
+        else if (id == R.id.nav_hardware) {
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

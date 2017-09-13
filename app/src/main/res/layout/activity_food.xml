@@ -13,11 +13,9 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
-
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_food" />
 
 
 </android.support.design.widget.CoordinatorLayout>
-
